@@ -1,4 +1,4 @@
-<h1>Listing Lists</h1>
+<h1 class="text-3xl text-slate-700">My Lists</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.list_index_path(@socket, :index)}>
@@ -13,6 +13,15 @@
   </.modal>
 <% end %>
 
+<ul class="flex flex-col space-y-8" id="lists">
+  <%= for list <- @lists do %>
+    <li class="flex-1 border flex items-center border-red-500">
+      <span class={"h-8 w-8 bg-[#{list.color}] after:content-[' '] before:content-[''] rounded-full"}></span>
+      <span class="text-xl"><%= list.name %></span>
+    </li>
+  <% end %>
+</ul>
+
 <table>
   <thead>
     <tr>
@@ -24,7 +33,7 @@
   </thead>
   <tbody id="lists">
     <%= for list <- @lists do %>
-      <tr id={"list-#{list.id}"}>
+      <tr id={"list-#{list.color}"}>
         <td><%= list.color %></td>
         <td><%= list.name %></td>
 

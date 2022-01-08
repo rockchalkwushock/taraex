@@ -2,6 +2,8 @@ defmodule App.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias App.Content.{List}
+
   @timestamps_opts [inserted_at: :created_at, type: :utc_datetime_usec, updated_at: :modified_at]
 
   schema "users" do
@@ -9,6 +11,9 @@ defmodule App.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+
+    has_many :lists, List
+    has_many :todos, through: [:lists, :todos]
 
     timestamps(@timestamps_opts)
   end

@@ -36,6 +36,7 @@ defmodule App.Accounts.UserToken do
   end
 end
 # List
+# mix phx.gen.live Content List lists color:string name:string user_id:references:users
 defmodule App.Content.List do
   use Ecto.Schema
   import Ecto.Changeset
@@ -54,6 +55,13 @@ defmodule App.Content.List do
   end
 end
 # Todo
+# mix phx.gen.live Content Todo todos \
+#   description:text \
+#   list_id:references:lists \
+#   priority:enum:low:medium:high \
+#   status:enum:completed:in_progress:unstarted \
+#   title:string \
+#   user_id:references:users
 defmodule App.Content.Todo do
   use Ecto.Schema
   import Ecto.Changeset
@@ -64,7 +72,7 @@ defmodule App.Content.Todo do
   @timestamps_opts [inserted_at: :created_at, type: :utc_datetime_usec, updated_at: :modified_at]
 
   schema :todos do
-    field :description, :string
+    field :description, :text
     field :priority, Ecto.Enum, values: @priority_values, default: :low
     field :status, Ecto.Enum, values: @status_values, default: :unstarted
     field :title, :string

@@ -72,12 +72,28 @@ defmodule AppWeb.Router do
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
-  scope "/", AppWeb do
-    pipe_through [:browser, :require_authenticated_user]
+  live_session :public, on_mount: AppWeb.Live.InitAssigns do
+    scope "/", AppWeb do
+      pipe_through [:browser, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+      get "/users/settings", UserSettingsController, :edit
+      put "/users/settings", UserSettingsController, :update
+      get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+      live "/lists", ListLive.Index, :index
+      live "/lists/new", ListLive.Index, :new
+      live "/lists/:id/edit", ListLive.Index, :edit
+
+      live "/lists/:id", ListLive.Show, :show
+      live "/lists/:id/show/edit", ListLive.Show, :edit
+
+      live "/todos", TodoLive.Index, :index
+      live "/todos/new", TodoLive.Index, :new
+      live "/todos/:id/edit", TodoLive.Index, :edit
+
+      live "/todos/:id", TodoLive.Show, :show
+      live "/todos/:id/show/edit", TodoLive.Show, :edit
+    end
   end
 
   scope "/", AppWeb do

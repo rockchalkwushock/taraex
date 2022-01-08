@@ -15,8 +15,10 @@
 
 <ul class="flex flex-col space-y-8" id="lists">
   <%= for list <- @lists do %>
-    <li class="flex-1 border flex items-center border-red-500">
-      <span class={"h-8 w-8 bg-[#{list.color}] after:content-[' '] before:content-[''] rounded-full"}></span>
+    <li class="flex-1 px-6 py-2 border space-x-8 flex items-center border-red-500">
+    <%# FIX the `style` solution is a temporary fix. Opened issue on phoenixframwork/tailwind about the arbitrary value not being applied %>
+    <%# https://github.com/phoenixframework/tailwind/issues/21 %>
+      <span class={"h-8 w-8 after:content-[' '] before:content-[''] rounded-full"} style={"background-color: #{list.color}"}></span>
       <span class="text-xl"><%= list.name %></span>
     </li>
   <% end %>

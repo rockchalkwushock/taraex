@@ -25,7 +25,8 @@ config :taraex, AppWeb.Endpoint,
   secret_key_base: "JTeNh+KD68cvVHFR2+smhcRntI3bElo7OF9NKJt7mk5iuOlUlUWC/KzY9dwektQT",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

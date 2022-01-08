@@ -1,0 +1,50 @@
+<h1>Show List</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.list_show_path(@socket, :show, @list)}>
+    <.live_component
+      module={AppWeb.ListLive.FormComponent}
+      id={@list.id}
+      title={@page_title}
+      action={@live_action}
+      list={@list}
+      return_to={Routes.list_show_path(@socket, :show, @list)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Color:</strong>
+    <%= @list.color %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @list.name %>
+  </li>
+</ul>
+
+<span><%= live_patch "Edit #{@list.name}", to: Routes.list_show_path(@socket, :edit, @list), class: "button" %></span> |
+<span><%= live_redirect "Back To My Lists", to: Routes.list_index_path(@socket, :index) %></span>
+
+<div>
+  <h2><%= @list.name %>'s Todos</h2>
+  <tbody id="todos">
+    <%= for todo <- @list.todos do %>
+      <tr id={"todo-#{todo.id}"}>
+        <td><%= todo.title %></td>
+        <td><%= todo.description %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.todo_show_path(@socket, :show, todo) %></span>
+          <span><%= live_patch "Edit", to: Routes.todo_index_path(@socket, :edit, todo) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: todo.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</div>
+
+<span><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></span>

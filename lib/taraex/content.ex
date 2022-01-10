@@ -6,6 +6,7 @@ defmodule App.Content do
   import Ecto.Query, warn: false
   alias App.Repo
 
+  alias App.Accounts.User
   alias App.Content.List
 
   @doc """
@@ -17,8 +18,9 @@ defmodule App.Content do
       [%List{}, ...]
 
   """
-  def list_lists do
-    Repo.all(List)
+  def list_lists(%User{} = user) do
+    query = from l in List, where: l.user_id == ^user.id
+    Repo.all(query)
   end
 
   @doc """
@@ -113,8 +115,17 @@ defmodule App.Content do
       [%Todo{}, ...]
 
   """
-  def list_todos do
-    Repo.all(Todo)
+  def list_todos(%User{} = user, attrs \\ %{}) do
+    case attrs do
+      %{status: status} ->
+        query = from t in Todo,
+          where: t.user_id == ^user.id,
+          where: t.status == ^status
+        Repo.all(query)
+      %{} ->
+        query = from t in Todo, where: t.user_id == ^user.id
+        Repo.all(query)
+    end
   end
 
   @doc """

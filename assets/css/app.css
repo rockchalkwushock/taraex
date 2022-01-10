@@ -6,3 +6,25 @@ html,
 body {
   scroll-behavior: smooth;
 }
+
+@layer components {
+  .btn {
+    @apply px-6 py-2 text-lg rounded-lg shadow-md hover:shadow-md;
+  }
+  .form {
+    @apply flex flex-col space-y-4 border border-red-500;
+  }
+  .input {
+    @apply px-6 py-2 border border-transparent rounded-md shadow-sm;
+  }
+  .modal {
+    @apply w-1/2 overflow-hidden shadow-lg rounded-xl;
+  }
+  .modal-close {
+    @apply px-2 py-1 transform bg-white rounded-full shadow-md hover:bg-amber-200 hover:scale-95 hover:shadow-none;
+  }
+  .modal-header {
+    @apply flex items-center justify-end px-4 pt-4;
+  }
+  .modal-overlay {}
+}

@@ -1,12 +1,13 @@
 defmodule AppWeb.TodoLive.Index do
   use AppWeb, :live_view
 
+  alias App.Accounts.User
   alias App.Content
   alias App.Content.Todo
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :todos, list_todos())}
+    {:ok, assign(socket, :todos, list_todos(socket.assigns.current_user))}
   end
 
   @impl true
@@ -37,10 +38,10 @@ defmodule AppWeb.TodoLive.Index do
     todo = Content.get_todo!(id)
     {:ok, _} = Content.delete_todo(todo)
 
-    {:noreply, assign(socket, :todos, list_todos())}
+    {:noreply, assign(socket, :todos, list_todos(socket.assigns.current_user))}
   end
 
-  defp list_todos do
-    Content.list_todos()
+  defp list_todos(%User{} = user) do
+    Content.list_todos(user)
   end
 end

@@ -1,4 +1,5 @@
 defmodule AppWeb.UserRegistrationController do
+  @moduledoc false
   use AppWeb, :controller
 
   alias App.Accounts

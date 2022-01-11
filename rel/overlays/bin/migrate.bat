@@ -1,0 +1,1 @@
+call "%~dp0\taraex" eval App.Release.migrate

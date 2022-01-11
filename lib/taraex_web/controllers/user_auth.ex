@@ -1,4 +1,5 @@
 defmodule AppWeb.UserAuth do
+  @moduledoc false
   import Plug.Conn
   import Phoenix.Controller
 

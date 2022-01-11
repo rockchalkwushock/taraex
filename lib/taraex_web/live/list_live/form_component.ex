@@ -1,4 +1,5 @@
 defmodule AppWeb.ListLive.FormComponent do
+  @moduledoc false
   use AppWeb, :live_component
 
   alias App.Content

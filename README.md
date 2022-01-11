@@ -1,4 +1,4 @@
-# Taraex
+# [Taraex](https://taraex.fly.dev/)
 
 ## Domain
 

@@ -1,4 +1,5 @@
 defmodule AppWeb.Live.InitAssigns do
+  @moduledoc false
   import Phoenix.LiveView
 
   alias App.Accounts

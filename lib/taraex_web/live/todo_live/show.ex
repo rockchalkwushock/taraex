@@ -1,4 +1,5 @@
 defmodule AppWeb.TodoLive.Show do
+  @moduledoc false
   use AppWeb, :live_view
 
   alias App.Content

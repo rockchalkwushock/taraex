@@ -21,7 +21,7 @@ defmodule App.ContentTest do
 
     test "get_list/1 return the list with the given id", %{user: user} do
       list = list_fixture(user)
-      # FIXME The "todos" are not preloaded so the test fails, how to fix this?
+      # The "todos" are not preloaded so the test fails, how to fix this?
       fetched_list = Content.get_list!(list.id)
       assert fetched_list.id == list.id
     end
@@ -50,7 +50,7 @@ defmodule App.ContentTest do
     test "update_list/2 with invalid data returns error changeset", %{user: user} do
       list = list_fixture(user)
       assert {:error, %Ecto.Changeset{}} = Content.update_list(list, @invalid_attrs)
-      # FIXME The "todos" are not preloaded so the test fails, how to fix this?
+      # The "todos" are not preloaded so the test fails, how to fix this?
       fetched_list = Content.get_list!(list.id)
       assert list.color == fetched_list.color
       assert list.name == fetched_list.name

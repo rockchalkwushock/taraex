@@ -13,6 +13,7 @@ defmodule App.ContentTest do
     setup do
       %{user: user_fixture()}
     end
+
     test "list_lists/1 returns all lists of current user", %{user: user} do
       list = list_fixture(user)
       assert Content.list_lists(user) == [list]
@@ -85,6 +86,7 @@ defmodule App.ContentTest do
 
     test "create_todo/1 with valid data creates a todo", %{user: user} do
       %{id: list_id} = _list = list_fixture(user)
+
       valid_attrs = %{
         description: "some description",
         list_id: list_id,
@@ -107,7 +109,13 @@ defmodule App.ContentTest do
 
     test "update_todo/2 with valid data updates the todo", %{user: user} do
       todo = todo_fixture(user)
-      update_attrs = %{description: "some updated description", priority: :medium, status: :in_progress, title: "some updated title"}
+
+      update_attrs = %{
+        description: "some updated description",
+        priority: :medium,
+        status: :in_progress,
+        title: "some updated title"
+      }
 
       assert {:ok, %Todo{} = todo} = Content.update_todo(todo, update_attrs)
       assert todo.description == "some updated description"

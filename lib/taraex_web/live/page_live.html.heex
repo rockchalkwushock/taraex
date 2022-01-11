@@ -1,0 +1,10 @@
+<section class="flex flex-col items-center justify-center flex-1 w-full space-y-16">
+  <h1 class="text-4xl">Welcome to TaraeX</h1>
+  <p class="w-1/3 p-4 text-xl font-medium tracking-normal text-justify rounded-lg shadow-md text-slate-700 bg-slate-200 shadow-slate-300">
+    A todo application built using the Elixir web framework Phoenix with it's reactive feature Phoenix LiveView.
+  </p>
+  <div class="flex w-1/2 justify-evenly">
+    <%= link "Log in", class: "py-2 px-6 w-32 text-center text-xl rounded-lg shadow-md shadow-blue-300 bg-blue-200 hover:bg-blue-600 hover:text-white hover:shadow-none", to: Routes.user_session_path(@socket, :new) %>
+    <%= link "Register", class: "py-2 px-6 w-32 text-center text-xl rounded-lg shadow-md shadow-blue-300 bg-blue-200 hover:bg-blue-600 hover:text-white hover:shadow-none", to: Routes.user_registration_path(@socket, :new) %>
+  </div>
+</section>

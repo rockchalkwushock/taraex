@@ -1,0 +1,54 @@
+<div class="flex items-center justify-between px-8 mb-16 border-b border-slate-300">
+  <h1 class="text-3xl text-slate-700"><%= @todo.title %></h1>
+  <div class="flex items-center space-x-4">
+    <span>
+      <%= live_patch "Edit",
+        to: Routes.todo_show_path(@socket, :edit, @todo),
+        class: "py-2 px-6 rounded-lg bg-slate-200 shadow-md shadow-slate-300 hover:bg-slate-300 hover:shadow-none"
+      %>
+    </span>
+    <span>
+      <%= live_redirect "Back",
+        to: Routes.todo_index_path(@socket, :index),
+        class: "py-2 px-6 rounded-lg bg-blue-200 shadow-md shadow-blue-300 hover:bg-blue-300 hover:shadow-none"
+      %>
+    </span>
+  </div>
+</div>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.todo_show_path(@socket, :show, @todo)}>
+    <.live_component
+      module={AppWeb.TodoLive.FormComponent}
+      id={@todo.id}
+      title={@page_title}
+      action={@live_action}
+      todo={@todo}
+      return_to={Routes.todo_show_path(@socket, :show, @todo)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @todo.description %>
+  </li>
+
+  <li>
+    <strong>Priority:</strong>
+    <%= @todo.priority %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @todo.status %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @todo.title %>
+  </li>
+
+</ul>

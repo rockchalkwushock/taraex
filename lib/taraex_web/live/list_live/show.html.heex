@@ -1,0 +1,80 @@
+<div class="flex items-center justify-between px-8 my-16 space-x-2">
+  <div class="">
+    <span class="h-8 w-8 after:content-[' '] before:content-[''] rounded-full" style={"background-color: #{@list.color}"}></span>
+    <h1 class="text-3xl text-slate-700"><%= @list.name %></h1>
+  </div>
+  <div class="flex items-center space-x-4">
+    <span>
+      <%= live_patch "Edit",
+        to: Routes.list_show_path(@socket, :edit, @list),
+        class: "py-2 px-6 rounded-lg bg-slate-200 shadow-md shadow-slate-300 hover:bg-slate-300 hover:shadow-none"
+      %>
+    </span>
+    <span>
+      <%= live_redirect "Back To My Lists",
+        to: Routes.list_index_path(@socket, :index),
+        class: "py-2 px-6 rounded-lg bg-blue-200 shadow-md shadow-blue-300 hover:bg-blue-300 hover:shadow-none"
+      %>
+    </span>
+  </div>
+</div>
+
+<div class="flex items-center w-full px-8">
+  <span>
+    <%= live_patch "New Todo",
+      to: Routes.todo_index_path(@socket, :new),
+      class: "py-2 px-6 rounded-lg bg-green-200 shadow-md shadow-green-300 hover:bg-green-300 hover:shadow-none"
+    %>
+  </span>
+</div>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.list_show_path(@socket, :show, @list)}>
+    <.live_component
+      module={AppWeb.ListLive.FormComponent}
+      id={@list.id}
+      title={@page_title}
+      action={@live_action}
+      list={@list}
+      return_to={Routes.list_show_path(@socket, :show, @list)}
+    />
+  </.modal>
+<% end %>
+
+<ul class="flex flex-col p-8 space-y-6" id="todos">
+  <%= for todo <- @list.todos do %>
+    <li class="flex items-center justify-between flex-1 px-8 py-4 space-x-8 border rounded-lg shadow-md shadow-slate-400 border-slate-200" id={"todo-#{todo.id}"}>
+      <div class="flex flex-col">
+        <span class="text-2xl">
+          <%= todo.title %>
+        </span>
+        <span class="text-lg italic text-slate-600">
+          <%= todo.description %>
+        </span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span>
+          <%= live_redirect "Show",
+              to: Routes.todo_show_path(@socket, :show, todo),
+              class: "px-6 py-2 rounded-lg shadow-md shadow-slate-300 bg-slate-200 hover:bg-slate-300 hover:shadow-none"
+          %>
+        </span>
+        <span>
+          <%= live_patch "Edit",
+              to: Routes.todo_index_path(@socket, :edit, todo),
+              class: "px-6 py-2 rounded-lg shadow-md shadow-blue-300 bg-blue-200 hover:bg-blue-300 hover:shadow-none"
+          %>
+        </span>
+        <span>
+          <%= link "Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: todo.id,
+              data: [confirm: "Are you sure?"] ,
+              class: "px-6 py-2 rounded-lg shadow-md shadow-red-300 bg-red-200 hover:bg-red-300 hover:shadow-none"
+          %>
+        </span>
+      </div>
+    </li>
+  <% end %>
+</ul>

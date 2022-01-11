@@ -1,12 +1,24 @@
 defmodule AppWeb.ListLive.Index do
   use AppWeb, :live_view
 
+  alias App.Accounts.User
   alias App.Content
   alias App.Content.List
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :lists, list_lists())}
+    completed = list_todos(socket.assigns.current_user, %{status: :completed})
+    in_progress = list_todos(socket.assigns.current_user, %{status: :in_progress})
+    lists = list_lists(socket.assigns.current_user)
+    unstarted = list_todos(socket.assigns.current_user, %{status: :unstarted})
+
+    socket = socket
+      |> assign(:completed, completed)
+      |> assign(:in_progress, in_progress)
+      |> assign(:lists, lists)
+      |> assign(:unstarted, unstarted)
+
+    {:ok, socket}
   end
 
   @impl true
@@ -28,7 +40,7 @@ defmodule AppWeb.ListLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Lists")
+    |> assign(:page_title, "My Lists")
     |> assign(:list, nil)
   end
 
@@ -37,10 +49,14 @@ defmodule AppWeb.ListLive.Index do
     list = Content.get_list!(id)
     {:ok, _} = Content.delete_list(list)
 
-    {:noreply, assign(socket, :lists, list_lists())}
+    {:noreply, assign(socket, :lists, list_lists(socket.assigns.current_user))}
   end
 
-  defp list_lists do
-    Content.list_lists()
+  defp list_lists(%User{} = user) do
+    Content.list_lists(user)
+  end
+
+  defp list_todos(%User{} = user, attrs) do
+    Content.list_todos(user, attrs)
   end
 end

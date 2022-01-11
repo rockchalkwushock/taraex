@@ -1,10 +1,18 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<div class="flex items-center space-x-8">
+  <%= if @current_user do %>
+  <span class="">
+    Logged in as:
+    <strong><%= @current_user.email %></strong>
+  </span>
+  <ul class="flex flex-col space-y-4">
+    <li class="bg-slate-600 rounded-lg px-6 py-2 font-medium text-white">
+      <%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %>
+    </li>
+    <li class="bg-red-600 rounded-lg px-6 py-2 font-medium text-white">
+      <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+    </li>
+  </ul>
+  <% else %>
+
+  <% end %>
+</div>

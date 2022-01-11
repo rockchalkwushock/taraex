@@ -10,6 +10,7 @@ defmodule App.ContentFixtures do
   """
   def list_fixture(attrs \\ %{}) do
     %{id: id} = _user = user_fixture()
+
     {:ok, list} =
       attrs
       |> Enum.into(%{
@@ -28,6 +29,7 @@ defmodule App.ContentFixtures do
   def todo_fixture(attrs \\ %{}) do
     %{id: list_id} = _list = list_fixture()
     %{id: user_id} = _user = user_fixture()
+
     {:ok, todo} =
       attrs
       |> Enum.into(%{

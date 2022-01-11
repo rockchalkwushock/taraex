@@ -4,8 +4,18 @@ defmodule AppWeb.TodoLiveTest do
   import Phoenix.LiveViewTest
   import App.ContentFixtures
 
-  @create_attrs %{description: "some description", priority: :low, status: :completed, title: "some title"}
-  @update_attrs %{description: "some updated description", priority: :medium, status: :in_progress, title: "some updated title"}
+  @create_attrs %{
+    description: "some description",
+    priority: :low,
+    status: :completed,
+    title: "some title"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    priority: :medium,
+    status: :in_progress,
+    title: "some updated title"
+  }
   @invalid_attrs %{description: nil, priority: nil, status: nil, title: nil}
 
   defp create_todo(_) do

@@ -30,9 +30,9 @@ users = [
 # Create some users.
 for attrs <- users do
   %User{}
-    |> User.registration_changeset(attrs)
-    |> User.confirm_changeset()
-    |> Repo.insert!()
+  |> User.registration_changeset(attrs)
+  |> User.confirm_changeset()
+  |> Repo.insert!()
 end
 
 users = Repo.all(User)
@@ -100,10 +100,12 @@ todos = [
 
 # For each user:
 for user <- users do
- # Create some lists
+  # Create some lists
   for attrs <- lists do
     attrs = Map.put(attrs, :user_id, user.id)
-    list = %List{}
+
+    list =
+      %List{}
       |> List.changeset(attrs)
       |> Repo.insert!()
 

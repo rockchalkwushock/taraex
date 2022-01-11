@@ -13,7 +13,8 @@ defmodule AppWeb.ListLive.Index do
     lists = list_lists(socket.assigns.current_user)
     unstarted = list_todos(socket.assigns.current_user, %{status: :unstarted})
 
-    socket = socket
+    socket =
+      socket
       |> assign(:completed, completed)
       |> assign(:in_progress, in_progress)
       |> assign(:lists, lists)

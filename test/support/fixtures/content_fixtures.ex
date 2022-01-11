@@ -3,19 +3,18 @@ defmodule App.ContentFixtures do
   This module defines test helpers for creating
   entities via the `App.Content` context.
   """
-  import App.AccountsFixtures
+  alias App.Accounts.User
 
   @doc """
   Generate a list.
   """
-  def list_fixture(attrs \\ %{}) do
-    %{id: id} = _user = user_fixture()
+  def list_fixture(%User{} = user, attrs \\ %{}) do
     {:ok, list} =
       attrs
       |> Enum.into(%{
         color: "some color",
         name: "some name",
-        user_id: id
+        user_id: user.id
       })
       |> App.Content.create_list()
 
@@ -25,16 +24,16 @@ defmodule App.ContentFixtures do
   @doc """
   Generate a todo.
   """
-  def todo_fixture(attrs \\ %{}) do
-    %{id: list_id} = _list = list_fixture()
-    %{id: user_id} = _user = user_fixture()
+  def todo_fixture(%User{} = user, attrs \\ %{}) do
+    %{id: list_id} = _list = list_fixture(user)
+
     {:ok, todo} =
       attrs
       |> Enum.into(%{
         description: "some description",
         list_id: list_id,
         title: "some title",
-        user_id: user_id
+        user_id: user.id
       })
       |> App.Content.create_todo()
 

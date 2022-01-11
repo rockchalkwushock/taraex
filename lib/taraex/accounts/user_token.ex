@@ -19,7 +19,7 @@ defmodule App.Accounts.UserToken do
     field :sent_to, :string
     belongs_to :user, App.Accounts.User
 
-    timestamps([inserted_at: :created_at, type: :utc_datetime_usec, updated_at: false])
+    timestamps(inserted_at: :created_at, type: :utc_datetime_usec, updated_at: false)
   end
 
   @doc """

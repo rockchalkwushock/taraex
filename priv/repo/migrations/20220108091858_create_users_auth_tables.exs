@@ -20,7 +20,7 @@ defmodule App.Repo.Migrations.CreateUsersAuthTables do
       add :token, :binary, null: false
       add :context, :string, null: false
       add :sent_to, :string
-      timestamps([inserted_at: :created_at, type: :utc_datetime_usec, updated_at: false])
+      timestamps(inserted_at: :created_at, type: :utc_datetime_usec, updated_at: false)
     end
 
     create index(:users_tokens, [:user_id])

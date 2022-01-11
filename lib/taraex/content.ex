@@ -118,10 +118,13 @@ defmodule App.Content do
   def list_todos(%User{} = user, attrs \\ %{}) do
     case attrs do
       %{status: status} ->
-        query = from t in Todo,
-          where: t.user_id == ^user.id,
-          where: t.status == ^status
+        query =
+          from t in Todo,
+            where: t.user_id == ^user.id,
+            where: t.status == ^status
+
         Repo.all(query)
+
       %{} ->
         query = from t in Todo, where: t.user_id == ^user.id
         Repo.all(query)

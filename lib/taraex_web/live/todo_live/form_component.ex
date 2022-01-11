@@ -1,4 +1,5 @@
 defmodule AppWeb.TodoLive.FormComponent do
+  @moduledoc false
   use AppWeb, :live_component
 
   alias App.Content

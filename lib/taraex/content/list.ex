@@ -1,4 +1,5 @@
 defmodule App.Content.List do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 
